@@ -1,8 +1,19 @@
+//==============================================================================================
+//  1) DESCRIPTION
+//    Home — the application's single page. Renders the top-level OwnerPage tab
+//    bar (Overview, Workspace, Workflow, Skills, Permissions, Conventions). Each
+//    tab renders either a ContentSection over an imported content-data array, or
+//    a nested tab component (WorkflowTab / SkillsTab / ConventionsTab, which in
+//    turn nests NamingTab / CodingStyleTab / SharedTab).
+//==============================================================================================
+
 import OwnerPage from 'nextjs-shared/OwnerPage'
 import ContentSection from '@/components/ContentSection'
+import { PAGE_MAX_WIDTH_CLASS } from '@/lib/constants'
 import { content as overviewContent } from '@/content/overview/content'
 import { content as workspaceContent } from '@/content/workspace/content'
-import { content as workflowContent } from '@/content/workflow/content'
+import { content as workflowTriggersContent } from '@/content/workflow/triggers/content'
+import { content as workflowRulesContent } from '@/content/workflow/rules/content'
 import { content as skillsContent } from '@/content/skills/overview/content'
 import { content as planContent } from '@/content/skills/plan/content'
 import { content as codeContent } from '@/content/skills/code/content'
@@ -30,6 +41,41 @@ import { content as sharedUiComponentsContent } from '@/content/conventions/arch
 import { content as sharedTablesContent } from '@/content/conventions/architecture/tables/content'
 import { content as sharedLoggingContent } from '@/content/conventions/architecture/logging/content'
 
+export default function Home() {
+  return (
+    <main className='w-full px-6 py-10'>
+      <div className={`${PAGE_MAX_WIDTH_CLASS} bg-pink-200`}>
+        <h1 className='text-2xl font-semibold text-gray-700 mb-10'>Claude Setup</h1>
+        <OwnerPage
+          tabs={[
+            { label: 'Overview', content: <ContentSection blocks={overviewContent} sourcePath='src/content/overview/content.ts' /> },
+            { label: 'Workspace', content: <ContentSection blocks={workspaceContent} sourcePath='src/content/workspace/content.ts' /> },
+            { label: 'Workflow', content: <WorkflowTab /> },
+            { label: 'Skills', content: <SkillsTab /> },
+            { label: 'Permissions', content: <ContentSection blocks={permissionsContent} sourcePath='src/content/permissions/content.ts' /> },
+            { label: 'Conventions', content: <ConventionsTab /> },
+          ]}
+        />
+      </div>
+    </main>
+  )
+}
+
+//----------------------------------------------------------------------------------------------
+//  WorkflowTab — a nested tab bar with two sub-tabs: Triggers, Rules
+//----------------------------------------------------------------------------------------------
+function WorkflowTab() {
+  return (
+    <OwnerPage
+      persistKey='workflow-sub-tabs'
+      tabs={[
+        { label: 'Triggers', content: <ContentSection blocks={workflowTriggersContent} sourcePath='src/content/workflow/triggers/content.ts' /> },
+        { label: 'Rules', content: <ContentSection blocks={workflowRulesContent} sourcePath='src/content/workflow/rules/content.ts' /> },
+      ]}
+    />
+  )
+}
+
 //----------------------------------------------------------------------------------------------
 //  SkillsTab — a nested tab bar with one sub-tab per skill, Overview leading
 //----------------------------------------------------------------------------------------------
@@ -45,6 +91,23 @@ function SkillsTab() {
         { label: 'audit', content: <ContentSection blocks={auditContent} sourcePath='src/content/skills/audit/content.ts' /> },
         { label: 'reinstall', content: <ContentSection blocks={reinstallContent} sourcePath='src/content/skills/reinstall/content.ts' /> },
         { label: 'Claude', content: <ContentSection blocks={claudeContent} sourcePath='src/content/skills/claude/content.ts' /> },
+      ]}
+    />
+  )
+}
+
+//----------------------------------------------------------------------------------------------
+//  ConventionsTab — a nested tab bar: Naming, Constants, Coding-style, Architecture
+//----------------------------------------------------------------------------------------------
+function ConventionsTab() {
+  return (
+    <OwnerPage
+      persistKey='conventions-sub-tabs'
+      tabs={[
+        { label: 'Naming', content: <NamingTab /> },
+        { label: 'Constants', content: <ContentSection blocks={constantsContent} sourcePath='src/content/conventions/constants/content.ts' /> },
+        { label: 'Coding-style', content: <CodingStyleTab /> },
+        { label: 'Architecture', content: <SharedTab /> },
       ]}
     />
   )
@@ -91,23 +154,6 @@ function CodingStyleTab() {
 }
 
 //----------------------------------------------------------------------------------------------
-//  ConventionsTab — a nested tab bar: Naming, Constants, Coding-style, Architecture
-//----------------------------------------------------------------------------------------------
-function ConventionsTab() {
-  return (
-    <OwnerPage
-      persistKey='conventions-sub-tabs'
-      tabs={[
-        { label: 'Naming', content: <NamingTab /> },
-        { label: 'Constants', content: <ContentSection blocks={constantsContent} sourcePath='src/content/conventions/constants/content.ts' /> },
-        { label: 'Coding-style', content: <CodingStyleTab /> },
-        { label: 'Architecture', content: <SharedTab /> },
-      ]}
-    />
-  )
-}
-
-//----------------------------------------------------------------------------------------------
 //  SharedTab — a nested tab bar for the nextjs-shared package: Overview, Components,
 //  UI Components, Tables (cache included as part of Tables), Logging
 //----------------------------------------------------------------------------------------------
@@ -123,23 +169,5 @@ function SharedTab() {
         { label: 'Logging', content: <ContentSection blocks={sharedLoggingContent} sourcePath='src/content/conventions/architecture/logging/content.ts' /> },
       ]}
     />
-  )
-}
-
-export default function Home() {
-  return (
-    <main className='w-full px-6 py-10'>
-      <h1 className='text-2xl font-semibold text-gray-700 mb-10'>Claude Setup</h1>
-      <OwnerPage
-        tabs={[
-          { label: 'Overview', content: <ContentSection blocks={overviewContent} sourcePath='src/content/overview/content.ts' /> },
-          { label: 'Workspace', content: <ContentSection blocks={workspaceContent} sourcePath='src/content/workspace/content.ts' /> },
-          { label: 'Workflow', content: <ContentSection blocks={workflowContent} sourcePath='src/content/workflow/content.ts' /> },
-          { label: 'Skills', content: <SkillsTab /> },
-          { label: 'Permissions', content: <ContentSection blocks={permissionsContent} sourcePath='src/content/permissions/content.ts' /> },
-          { label: 'Conventions', content: <ConventionsTab /> },
-        ]}
-      />
-    </main>
   )
 }

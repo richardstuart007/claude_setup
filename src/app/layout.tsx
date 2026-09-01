@@ -1,3 +1,13 @@
+//==============================================================================================
+//  1) DESCRIPTION
+//    RootLayout — the app's root layout. Wraps every page in the <html>/<body>
+//    shell and pulls in the global stylesheet. The exported `metadata` sets the
+//    browser tab title and description.
+//
+//    Parameters:
+//      children — the page content rendered inside <body>
+//==============================================================================================
+
 import type { Metadata } from "next";
 import "./globals.css";
 

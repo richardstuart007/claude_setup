@@ -16,7 +16,12 @@ export const content: ContentBlock[] = [
       ],
       [
         "Catches undisclosed decisions",
-        "Constants as explicit imports make it easier for the designer to see when Claude has made a decision and not said so. One more method to catch Claude making decisions without informing the designer",
+        {
+          list: [
+            "Constants as explicit imports make it easier for the designer to see when Claude has made a decision and not said so.",
+            "One more method to catch Claude making decisions without informing the designer.",
+          ],
+        },
       ],
     ],
   },

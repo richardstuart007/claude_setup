@@ -3,7 +3,7 @@ import type { ContentBlock } from "@/content/ContentBlock";
 export const content: ContentBlock[] = [
   {
     type: "paragraph",
-    text: "Claude Code's tool permissions live in one settings file. This setup's allow list is broad. Reading files, editing/writing, running shell commands are all allowed without a prompt, and edits themselves never trigger a permission prompt either.",
+    text: "Claude Code's tool permissions live in one settings file, ~/.claude/settings.json. This setup's allow list is broad. Reading files, editing/writing, running shell commands are all allowed without a prompt, and edits themselves never trigger a permission prompt either.",
   },
   {
     type: "paragraph",
@@ -33,11 +33,11 @@ export const content: ContentBlock[] = [
     headers: ["Hook", "Description"],
     rows: [
       [
-        "Per-command exception mechanism",
+        "Per-command exception mechanism (permission-exceptions.sh)",
         "Lets one specific, exact command be exempted from a confirmation rule while everything else in that command's family still asks",
       ],
       [
-        "Project-isolation guard",
+        "Project-isolation guard (project-isolation-guard.js)",
         "Blocks any file edit/write whose target resolves outside the current project (or outside Claude's own working files). This only matters if the reader runs Claude across multiple concurrent projects sharing one configuration. A single-project setup gets no value from it, for a different reason than wrong tech stack",
       ],
     ],

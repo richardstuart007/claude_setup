@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @source "../../node_modules/nextjs-shared/src";
 
+/*
+  Tailwind v4's Preflight no longer sets `cursor: pointer` on buttons (v3 did).
+  Restore it project-wide so <button>/[role="button"] controls — including the
+  MyTab tabs rendered by OwnerPage — show the hand cursor, except when disabled.
+*/
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 @utility text-xxs {
   font-size: 0.625rem;
   line-height: 1rem;
