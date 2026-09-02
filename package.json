@@ -1,6 +1,6 @@
 {
   "name": "claude_setup",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,18 +10,18 @@
   "dependencies": {
     "next": "^16.2.12",
     "nextjs-shared": "github:richardstuart007/nextjs-shared",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.3.1",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "25.9.3",
-    "@types/pg": "8.20.0",
-    "@types/react": "19.2.17",
-    "@types/react-dom": "19.2.3",
-    "launch-editor": "^2.14.1",
-    "prettier": "3.8.4",
-    "tailwindcss": "4.3.1",
+    "@types/pg": "8.23.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "launch-editor": "2.14.1",
+    "prettier": "3.9.6",
+    "tailwindcss": "4.3.3",
     "typescript": "6.0.3"
   },
   "overrides": {
